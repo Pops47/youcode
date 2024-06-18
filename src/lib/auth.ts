@@ -5,7 +5,7 @@ import {
   NextApiResponse,
 } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../pages/api/auth/[...nextauth]";
+import { authOptions } from "../../app/api/auth/[...nextauth]/route";
 
 type ParametersGetServerSession =
   | []
