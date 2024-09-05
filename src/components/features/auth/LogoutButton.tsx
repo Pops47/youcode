@@ -1,14 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { SiGithub } from "@icons-pack/react-simple-icons";
 import { useMutation } from "@tanstack/react-query";
-import { Loader } from "lucide-react";
-import { signIn } from "next-auth/react";
+import { Loader, LogOut } from "lucide-react";
+import { signOut } from "next-auth/react";
 
-export default function LoginButton() {
+export default function LogoutButton() {
   const mutation = useMutation({
     mutationFn: async () => {
-      signIn();
+      await signOut();
     },
   });
   return (
@@ -22,9 +21,9 @@ export default function LoginButton() {
       {mutation.isPending ? (
         <Loader className="mr-2" size={12} />
       ) : (
-        <SiGithub className="mr-4" />
+        <LogOut className="mr-4" size={16} />
       )}
-      Se connecter avec GitHub
+      Logout
     </Button>
   );
 }

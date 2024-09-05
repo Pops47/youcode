@@ -14,19 +14,25 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useMutation } from "@tanstack/react-query";
-import { Loader, LogOut } from "lucide-react";
+import { Loader, LogOut, User2 } from "lucide-react";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type LoggedInButtonProps = {
   user: Session["user"];
 };
 
 export default function LoggedInButton({ user }: LoggedInButtonProps) {
-  const mutation = useMutation({ mutationFn: async () => signOut() });
+  const router = useRouter();
+  const mutation = useMutation({
+    mutationFn: async () => signOut(),
+  });
   return (
     <DropdownMenu>
       <AlertDialog>
@@ -43,9 +49,16 @@ export default function LoggedInButton({ user }: LoggedInButtonProps) {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <AlertDialogTrigger>
-            <DropdownMenuItem className="w-40">
+            <DropdownMenuItem className="w-40 cursor-pointer" asChild>
+              <Link href="/account">
+                <User2 className="mr-2 h-4 w-4" />
+                My account
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="w-40 cursor-pointer">
               <LogOut className="mr-2 h-4 w-4" />
-              <span>Log out</span>
+              Log out
             </DropdownMenuItem>
           </AlertDialogTrigger>
         </DropdownMenuContent>
